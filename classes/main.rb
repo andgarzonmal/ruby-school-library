@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require_relative './app'
 
 def main # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
