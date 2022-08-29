@@ -4,7 +4,7 @@ require_relative './book'
 require_relative './rental'
 require_relative './person'
 require_relative './functionalities/lists'
-require_relative './functionalities/add_book'
+require_relative './functionalities/create_record'
 
 class App
   attr_reader :books, :rentals, :people
@@ -39,11 +39,11 @@ class App
       when 2
         List.new.list_all_people(@people)
       when 3
-        Create_record.new.create_a_person(@people)
+        CreateRecord.new.create_a_person(@people)
       when 4
-        Create_record.new.create_a_book(@books)
+        CreateRecord.new.create_a_book(@books)
       when 5
-        Create_record.new.create_a_rental(@books, @people, @rentals)
+        CreateRecord.new.create_a_rental(@books, @people, @rentals)
       when 6
         List.new.list_all_rentals(@rentals)
       when 7
