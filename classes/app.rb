@@ -3,6 +3,7 @@ require_relative './student'
 require_relative './book'
 require_relative './rental'
 require_relative './person'
+require_relative './functionalities/lists'
 
 class App
   attr_reader :books, :rentals, :people
@@ -13,12 +14,41 @@ class App
     @people = people
   end
 
-  def list_all_books
-    @books.each { |book| puts "Title: \"#{book.title}\", Author: #{book.author}" }
+  def run
+    puts "Welcome to School Library App!
+    Please choose an option by entering a number:
+      1 - List all books
+      2 - List all people
+      3 - Create a person
+      4 - Create a book
+      5 - Create a rental
+      6 - List all rentals for a given person id
+      7 - Exit"
+    print 'Please Enter your selection here:'
   end
 
-  def list_all_people
-    @people.each { |person| puts "[#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}" }
+  def display # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
+    selection = 0
+    while selection != 7
+      run
+      selection = gets.chomp.to_i
+      case selection
+      when 1
+        List.new.list_all_books(@books)
+      when 2
+        List.new.app.list_all_people(@people)
+      when 3
+        app.create_a_person
+      when 4
+        app.create_a_book
+      when 5
+        app.create_a_rental
+      when 6
+        app.list_all_rentals
+      when 7
+        puts 'Thank you for using this app'
+      end
+    end
   end
 
   def create_student
@@ -78,12 +108,5 @@ class App
     date = gets.chomp
     @rentals << Rental.new(date, chosen_person, chosen_book)
     puts 'Rental created successfully'
-  end
-
-  def list_all_rentals
-    puts 'ID of person: '
-    selected_id = gets.chomp.to_i
-    list_of_rentals = @rentals.select { |rental| rental.person.id == selected_id }
-    list_of_rentals.each { |item| puts "Date: #{item.date}, Book: \"#{item.book.title}\" by #{item.book.author}" }
   end
 end
