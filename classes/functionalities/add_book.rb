@@ -10,7 +10,7 @@ class Create_record
     people << Student.new('clase_1', age, name, parent_permission: permission.downcase == 'y')
   end
 
-  def create_teacher(@people)
+  def create_teacher(people)
     puts 'Age: '
     age = gets.chomp.to_i
     puts 'Name: '
@@ -41,20 +41,20 @@ class Create_record
     books << Book.new(title, author)
   end
 
-  def create_a_rental
+  def create_a_rental(books, people, rentals)
     puts 'Select a book from the following list by number'
-    @books.each_with_index { |book, i| puts "#{i}) Title: \"#{book.title}\", Author: #{book.author}" }
+    books.each_with_index { |book, i| puts "#{i}) Title: \"#{book.title}\", Author: #{book.author}" }
     chosen_book_id = gets.chomp.to_i
-    chosen_book = @books[chosen_book_id]
+    chosen_book = books[chosen_book_id]
     puts 'Select a person from the following list by number'
-    @people.each_with_index do |person, i|
+    people.each_with_index do |person, i|
       puts "[#{i}) #{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
     end
     chosen_person_id = gets.chomp.to_i
-    chosen_person = @people[chosen_person_id]
+    chosen_person = people[chosen_person_id]
     puts 'Date: '
     date = gets.chomp
-    @rentals << Rental.new(date, chosen_person, chosen_book)
+    rentals << Rental.new(date, chosen_person, chosen_book)
     puts 'Rental created successfully'
   end
 
