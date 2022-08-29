@@ -37,16 +37,15 @@ class App
       when 1
         List.new.list_all_books(@books)
       when 2
-        List.new.app.list_all_people(@people)
+        List.new.list_all_people(@people)
       when 3
-        create_a_person
-        Create_record.new.create_a_person
+        Create_record.new.create_a_person(@people)
       when 4
-        app.create_a_book
+        Create_record.new.create_a_book(@books)
       when 5
-        app.create_a_rental
+        Create_record.new.create_a_rental(@books, @people, @rentals)
       when 6
-        app.list_all_rentals
+        List.new.list_all_rentals(@rentals)
       when 7
         puts 'Thank you for using this app'
       end
