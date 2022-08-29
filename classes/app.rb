@@ -3,6 +3,8 @@ require_relative './student'
 require_relative './book'
 require_relative './rental'
 require_relative './person'
+require_relative './functionalities/lists'
+require_relative './functionalities/create_record'
 
 class App
   attr_reader :books, :rentals, :people
@@ -13,77 +15,40 @@ class App
     @people = people
   end
 
-  def list_all_books
-    @books.each { |book| puts "Title: \"#{book.title}\", Author: #{book.author}" }
+  def run
+    puts "Welcome to School Library App!
+    Please choose an option by entering a number:
+      1 - List all books
+      2 - List all people
+      3 - Create a person
+      4 - Create a book
+      5 - Create a rental
+      6 - List all rentals for a given person id
+      7 - Exit"
+    print 'Please Enter your selection here:'
   end
 
-  def list_all_people
-    @people.each { |person| puts "[#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}" }
-  end
-
-  def create_student
-    puts 'Age:'
-    age = gets.chomp.to_i
-    puts 'Name:'
-    name = gets.chomp
-    puts 'Has parent permission? [Y/N]'
-    permission = gets.chomp
-    puts 'Person created successfully'
-    @people << Student.new('clase_1', age, name, parent_permission: permission.downcase == 'y')
-  end
-
-  def create_teacher
-    puts 'Age: '
-    age = gets.chomp.to_i
-    puts 'Name: '
-    name = gets.chomp
-    puts 'Specialization: '
-    specialization = gets.chomp
-    puts 'Person created successfully'
-    @people << Teacher.new(specialization, age, name)
-  end
-
-  def create_a_person
-    puts 'do you want to create a sudent (1) or a teacher (2) [Input the number]:'
-    selection = gets.chomp.to_i
-    case selection
-    when 1
-      create_student
-    when 2
-      create_teacher
+  def display # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
+    selection = 0
+    while selection != 7
+      run
+      selection = gets.chomp.to_i
+      case selection
+      when 1
+        List.new.list_all_books(@books)
+      when 2
+        List.new.list_all_people(@people)
+      when 3
+        CreateRecord.new.create_a_person(@people)
+      when 4
+        CreateRecord.new.create_a_book(@books)
+      when 5
+        CreateRecord.new.create_a_rental(@books, @people, @rentals)
+      when 6
+        List.new.list_all_rentals(@rentals)
+      when 7
+        puts 'Thank you for using this app'
+      end
     end
-  end
-
-  def create_a_book
-    puts 'Title: '
-    title = gets.chomp
-    puts 'Author: '
-    author = gets.chomp
-    puts 'Book created successfully'
-    @books << Book.new(title, author)
-  end
-
-  def create_a_rental
-    puts 'Select a book from the following list by number'
-    @books.each_with_index { |book, i| puts "#{i}) Title: \"#{book.title}\", Author: #{book.author}" }
-    chosen_book_id = gets.chomp.to_i
-    chosen_book = @books[chosen_book_id]
-    puts 'Select a person from the following list by number'
-    @people.each_with_index do |person, i|
-      puts "[#{i}) #{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-    end
-    chosen_person_id = gets.chomp.to_i
-    chosen_person = @people[chosen_person_id]
-    puts 'Date: '
-    date = gets.chomp
-    @rentals << Rental.new(date, chosen_person, chosen_book)
-    puts 'Rental created successfully'
-  end
-
-  def list_all_rentals
-    puts 'ID of person: '
-    selected_id = gets.chomp.to_i
-    list_of_rentals = @rentals.select { |rental| rental.person.id == selected_id }
-    list_of_rentals.each { |item| puts "Date: #{item.date}, Book: \"#{item.book.title}\" by #{item.book.author}" }
   end
 end

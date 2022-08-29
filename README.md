@@ -22,9 +22,15 @@ To edit this project:
 - Edit the code as you want.
 
 ## Authors:
+**Andres Garzon Maldonado**
 :bust_in_silhouette: Andres Garzon
 - Github: [@](https://github.com/Gopxfs)
 - Linkedin: [Andres](https://www.linkedin.com/in/gabriel-fonseca-sales-8bb64b236/)
+
+**Oyelakin Ridwan Adio**
+- GitHub: [@oyelakin](https://github.com/oyelakinG9)
+- Twitter: [@oyelakin](https://twitter.com/OyelakinG1)
+- LinkedIn: [@oyelakin](https://www.linkedin.com/in/oyelakin-ridwan-4b4a02b6/)
 
 ## :star2: Show your support
 Give a :star: if you like our project!
