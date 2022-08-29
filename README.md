@@ -22,6 +22,7 @@ To edit this project:
 - Edit the code as you want.
 
 ## Authors:
+**Andres Garzon Maldonado**
 :bust_in_silhouette: Andres Garzon
 - Github: [@](https://github.com/Gopxfs)
 - Linkedin: [Andres](https://www.linkedin.com/in/gabriel-fonseca-sales-8bb64b236/)
