@@ -12,12 +12,12 @@ class App
   include PreserveLoad
   attr_reader :books, :rentals, :people
 
-  def initialize #(rentals = [])
+  def initialize 
     create_all_books
     create_all_people
-    create_all_rentals 
+    create_a_rentals
     @books
-    @rentals #= rentals
+    @rentals 
     @people
   end
 
