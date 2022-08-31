@@ -19,5 +19,12 @@
     "name": "Ridwan",
     "specialization": "programmers",
     "id": 482
+  },
+  {
+    "class": "Student",
+    "name": "sada",
+    "age": 22,
+    "id": 301,
+    "parent_permission": true
   }
 ]

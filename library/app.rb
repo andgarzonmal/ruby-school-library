@@ -5,20 +5,20 @@ require_relative './rental'
 require_relative './person'
 require_relative './functionalities/lists'
 require_relative './functionalities/create_record'
-require_relative './Helper_module/preserveLoad'
+require_relative './Helper_module/preserve_load'
 require 'json'
 
 class App
   include PreserveLoad
   attr_reader :books, :rentals, :people
 
-  def initialize 
+  def initialize
+    @books = [] if @books.nil?
+    @rentals = [] if @rentals.nil?
+    @people = [] if @people.nil?
     create_all_books
     create_all_people
     create_a_rentals
-    @books
-    @rentals 
-    @people
   end
 
   def run

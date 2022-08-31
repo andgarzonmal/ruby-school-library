@@ -30,59 +30,62 @@ module PreserveLoad
         { date: rental.date,
           book: { title: rental.book.title, author: rental.book.author },
           person: { name: rental.person.name, age: rental.person.age, id: rental.person.id,
-                    parent_permission: rental.person.parent_permission, class: rental.person.class }         
-        }
+                    parent_permission: rental.person.parent_permission, class: rental.person.class } }
       elsif rental.person.class != Student
         { date: rental.date,
           book: { title: rental.book.title, author: rental.book.author },
           person: { name: rental.person.name, age: rental.person.age, id: rental.person.id,
-                    specialization: rental.person.specialization, class: rental.person.class }
-        }
+                    specialization: rental.person.specialization, class: rental.person.class } }
       end
     end
     File.write('library/Data/rentals.json', JSON.pretty_generate(data))
   end
 
-  def create_all_books 
+  def create_all_books
     @books = []
     file = File.open('library/Data/books.json')
-    if !File.zero?('library/Data/books.json')
+    if File.zero?('library/Data/books.json')
+      puts 'file empty'
+    else
       file_data = file.read
-     data_arr = JSON.parse(file_data, symbolize_names:true)
-     if data_arr.length > 0
-       data_arr.each {|book| @books << Book.new(book[:title], book[:author])}
-      end
+      data_arr = JSON.parse(file_data, symbolize_names: true)
+      data_arr.each { |book| @books << Book.new(book[:title], book[:author]) } if data_arr.length.positive?
     end
-  end 
+  end
 
   def create_all_people
     @people = []
     file = File.open('library/Data/people.json')
-    if !File.zero?('library/Data/people.json')
+    if File.zero?('library/Data/people.json')
+      puts 'file empty'
+    else
       file_data = file.read
-      data_arr = JSON.parse(file_data, symbolize_names:true)
-      if data_arr.length > 0
+      data_arr = JSON.parse(file_data, symbolize_names: true)
+      if data_arr.length.positive?
         data_arr.each do |person|
-          if person[:class] == "Student"
-            @people << Student.new('clase_1', person[:age], person[:name], person[:id], parent_permission: person[:parent_permission])
-          elsif person[:class] != "Student"
+          if person[:class] == 'Student'
+            @people << Student.new('clase_1', person[:age], person[:name], person[:id],
+                                   parent_permission: person[:parent_permission])
+          elsif person[:class] != 'Student'
             @people << Teacher.new(person[:specialization], person[:age], person[:name], person[:id])
           end
-        end  
-       end
+        end
+      end
     end
-  end 
+  end
 
   def create_a_rentals
     @rentals = []
     file = File.open('library/Data/rentals.json')
-    if !File.zero?('library/Data/people.json')
+    if File.zero?('library/Data/people.json')
+      puts 'file empty'
+    else
       file_data = file.read
-      data_arr = JSON.parse(file_data, symbolize_names:true)
-      if data_arr.length > 0
+      data_arr = JSON.parse(file_data, symbolize_names: true)
+      if data_arr.length.positive?
         data_arr.each do |rental|
-          person = @people.find { |person| rental[:person][:id] == person.id }
-          book = @books.find {|book| rental[:book][:title] == book.title }
+          person = @people.find { |per| rental[:person][:id] == per.id }
+          book = @books.find { |bo| rental[:book][:title] == bo.title }
           @rentals << Rental.new(rental[:date], person, book)
         end
       end
