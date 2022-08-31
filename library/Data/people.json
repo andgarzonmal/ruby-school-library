@@ -12,5 +12,12 @@
     "name": "asfas",
     "specialization": "asfaf",
     "id": 67
+  },
+  {
+    "class": "Teacher",
+    "age": 34,
+    "name": "Ridwan",
+    "specialization": "programmers",
+    "id": 482
   }
 ]
