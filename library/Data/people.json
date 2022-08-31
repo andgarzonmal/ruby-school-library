@@ -1,12 +1,16 @@
 [
   {
+    "class": "Student",
+    "name": "asfa",
+    "age": 33,
+    "id": 507,
+    "parent_permission": true
+  },
+  {
     "class": "Teacher",
     "age": 33,
-    "name": "adf",
-    "specialization": "sdf",
-    "id": 296,
-    "rentals": [
-
-    ]
+    "name": "asfas",
+    "specialization": "asfaf",
+    "id": 67
   }
 ]

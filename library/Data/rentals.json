@@ -1,19 +1,16 @@
 [
   {
-    "date": "55",
+    "date": "2020",
     "book": {
-      "title": "fsdf",
-      "author": "sdfsdf"
+      "title": "asdasda",
+      "author": "asdasdasd"
     },
     "person": {
-      "name": "adf",
+      "name": "asfas",
       "age": 33,
-      "id": 296,
-      "specialization": "sdf",
-      "class": "Teacher",
-      "rentals": [
-        "#<Rental:0x00007efc58383208>"
-      ]
+      "id": 67,
+      "specialization": "asfaf",
+      "class": "Teacher"
     }
   }
 ]
