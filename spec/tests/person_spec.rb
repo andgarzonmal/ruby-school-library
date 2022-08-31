@@ -1,9 +1,9 @@
 require_relative '../../library/person'
 
-describe Person do 
+describe Person do
   person = Person.new(35, 'Andres', 20, parent_permission: true)
 
-  it 'person contains age' do 
+  it 'person contains age' do
     expect(person.age).to eq(35)
   end
 
