@@ -5,14 +5,20 @@ require_relative './rental'
 require_relative './person'
 require_relative './functionalities/lists'
 require_relative './functionalities/create_record'
+require_relative './Helper_module/preserveLoad'
+require 'json'
 
 class App
+  include PreserveLoad
   attr_reader :books, :rentals, :people
 
-  def initialize(books = [], rentals = [], people = [])
-    @books = books
-    @rentals = rentals
-    @people = people
+  def initialize #(rentals = [])
+    create_all_books
+    create_all_people
+    create_all_rentals 
+    @books
+    @rentals #= rentals
+    @people
   end
 
   def run
@@ -48,6 +54,9 @@ class App
         List.new.list_all_rentals(@rentals)
       when 7
         puts 'Thank you for using this app'
+        store_all_books
+        store_all_people
+        store_all_rentals
       end
     end
   end
