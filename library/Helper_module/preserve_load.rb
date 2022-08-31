@@ -43,22 +43,29 @@ module PreserveLoad
 
   def create_all_books
     @books = []
-    file = File.open('library/Data/books.json')
-    if File.zero?('library/Data/books.json')
-      puts 'file empty'
-    else
+    if File.exist?('library/Data/books.json')
+      file = File.open('library/Data/books.json')
       file_data = file.read
       data_arr = JSON.parse(file_data, symbolize_names: true)
       data_arr.each { |book| @books << Book.new(book[:title], book[:author]) } if data_arr.length.positive?
+    else
+      data = if @books.length.positive?
+               @books.map do |book|
+                 { title: book.title, author: book.author }
+               end
+             else
+               []
+             end
+      file = File.open('library/Data/books.json', 'w')
+      file.write(JSON.pretty_generate(data))
+      file.close
     end
   end
 
   def create_all_people
     @people = []
-    file = File.open('library/Data/people.json')
-    if File.zero?('library/Data/people.json')
-      puts 'file empty'
-    else
+    if File.exist?('library/Data/people.json')
+      file = File.open('library/Data/people.json')
       file_data = file.read
       data_arr = JSON.parse(file_data, symbolize_names: true)
       if data_arr.length.positive?
@@ -71,15 +78,15 @@ module PreserveLoad
           end
         end
       end
+    else
+      create_people_file
     end
   end
 
   def create_a_rentals
     @rentals = []
-    file = File.open('library/Data/rentals.json')
-    if File.zero?('library/Data/people.json')
-      puts 'file empty'
-    else
+    if File.exist?('library/Data/rentals.json')
+      file = File.open('library/Data/rentals.json')
       file_data = file.read
       data_arr = JSON.parse(file_data, symbolize_names: true)
       if data_arr.length.positive?
@@ -89,6 +96,8 @@ module PreserveLoad
           @rentals << Rental.new(rental[:date], person, book)
         end
       end
+    else
+      create_rentals_file
     end
   end
 end

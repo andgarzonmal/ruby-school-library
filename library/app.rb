@@ -34,6 +34,45 @@ class App
     print 'Please Enter your selection here:'
   end
 
+  def create_people_file
+    data = @people.map do |person|
+      if person.instance_of?(Student)
+        { class: person.class, name: person.name, age: person.age, id: person.id,
+          parent_permission: person.parent_permission }
+      elsif person.class != Student
+        { class: person.class, age: person.age, name: person.name, specialization: person.specialization,
+          id: person.id }
+      else
+        []
+      end
+    end
+    file = File.open('library/Data/people.json', 'w')
+    file.write(JSON.pretty_generate(data))
+    file.close
+  end
+
+  def create_rentals_file
+    data = []
+    data = if @rentals.length.positive?
+             @rentals.map do |rental|
+               if rental.person.instance_of?(Student)
+                 { date: rental.date,
+                   book: { title: rental.book.title, author: rental.book.author },
+                   person: { name: rental.person.name, age: rental.person.age, id: rental.person.id,
+                             parent_permission: rental.person.parent_permission, class: rental.person.class } }
+               elsif rental.person.class != Student
+                 { date: rental.date,
+                   book: { title: rental.book.title, author: rental.book.author },
+                   person: { name: rental.person.name, age: rental.person.age, id: rental.person.id,
+                             specialization: rental.person.specialization, class: rental.person.class } }
+               end
+             end
+           end
+    file = File.open('library/Data/rentals.json', 'w')
+    file.write(JSON.pretty_generate(data))
+    file.close
+  end
+
   def display # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
     selection = 0
     while selection != 7

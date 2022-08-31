@@ -1,16 +1,1 @@
-[
-  {
-    "date": "2020",
-    "book": {
-      "title": "asdasda",
-      "author": "asdasdasd"
-    },
-    "person": {
-      "name": "asfas",
-      "age": 33,
-      "id": 67,
-      "specialization": "asfaf",
-      "class": "Teacher"
-    }
-  }
-]
+null
