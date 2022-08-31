@@ -66,7 +66,7 @@ module PreserveLoad
           if person[:class] == "Student"
             @people << Student.new('clase_1', person[:age], person[:name], person[:id], parent_permission: person[:parent_permission])
           elsif person[:class] != "Student"
-            @people << Teacher.new(person[:specialization], person[:age], person[:id], person[:name])
+            @people << Teacher.new(person[:specialization], person[:age], person[:name], person[:id])
           end
         end  
        end
