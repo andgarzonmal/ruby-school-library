@@ -15,10 +15,10 @@ module PreserveLoad
     data = @people.map do |person|
       if person.instance_of?(Student)
         { class: person.class, name: person.name, age: person.age, id: person.id,
-          parent_permission: person.parent_permission, rentals: [] }
+          parent_permission: person.parent_permission }
       elsif person.class != Student
         { class: person.class, age: person.age, name: person.name, specialization: person.specialization,
-          id: person.id, rentals: [] }
+          id: person.id }
       end
     end
     File.write('library/Data/people.json', JSON.pretty_generate(data))
@@ -30,13 +30,13 @@ module PreserveLoad
         { date: rental.date,
           book: { title: rental.book.title, author: rental.book.author },
           person: { name: rental.person.name, age: rental.person.age, id: rental.person.id,
-                    parent_permission: rental.person.parent_permission, class: rental.person.class, rentals: rental.person.rentals  }         
+                    parent_permission: rental.person.parent_permission, class: rental.person.class }         
         }
       elsif rental.person.class != Student
         { date: rental.date,
           book: { title: rental.book.title, author: rental.book.author },
           person: { name: rental.person.name, age: rental.person.age, id: rental.person.id,
-                    specialization: rental.person.specialization, class: rental.person.class, rentals: rental.person.rentals }
+                    specialization: rental.person.specialization, class: rental.person.class }
         }
       end
     end
@@ -64,23 +64,27 @@ module PreserveLoad
       if data_arr.length > 0
         data_arr.each do |person|
           if person[:class] == "Student"
-            @people << Student.new('clase_1', person[:age], person[:name], parent_permission: person[:parent_permission])
+            @people << Student.new('clase_1', person[:age], person[:name], person[:id], parent_permission: person[:parent_permission])
           elsif person[:class] != "Student"
-            @people << Teacher.new(person[:specialization], person[:age], person[:name])
+            @people << Teacher.new(person[:specialization], person[:age], person[:id], person[:name])
           end
         end  
        end
     end
   end 
-  
-  def create_all_rentals 
+
+  def create_a_rentals
     @rentals = []
     file = File.open('library/Data/rentals.json')
-    if !File.zero?('library/Data/rentals.json')
+    if !File.zero?('library/Data/people.json')
       file_data = file.read
       data_arr = JSON.parse(file_data, symbolize_names:true)
       if data_arr.length > 0
-        data_arr.each {|rental| @rentals << Rental.new(rental[:date], rental[:person], rental[:book])}
+        data_arr.each do |rental|
+          person = @people.find { |person| rental[:person][:id] == person.id }
+          book = @books.find {|book| rental[:book][:title] == book.title }
+          @rentals << Rental.new(rental[:date], person, book)
+        end
       end
     end
   end
