@@ -1,0 +1,19 @@
+[
+  {
+    "date": "55",
+    "book": {
+      "title": "fsdf",
+      "author": "sdfsdf"
+    },
+    "person": {
+      "name": "adf",
+      "age": 33,
+      "id": 296,
+      "specialization": "sdf",
+      "class": "Teacher",
+      "rentals": [
+        "#<Rental:0x00007efc58383208>"
+      ]
+    }
+  }
+]
