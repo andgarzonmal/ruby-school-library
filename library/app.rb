@@ -52,7 +52,6 @@ class App
   end
 
   def create_rentals_file
-    data = []
     data = if @rentals.length.positive?
              @rentals.map do |rental|
                if rental.person.instance_of?(Student)
@@ -67,6 +66,8 @@ class App
                              specialization: rental.person.specialization, class: rental.person.class } }
                end
              end
+           else
+             []
            end
     file = File.open('library/Data/rentals.json', 'w')
     file.write(JSON.pretty_generate(data))
