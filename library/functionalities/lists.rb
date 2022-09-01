@@ -7,6 +7,7 @@ class List
   end
 
   def list_all_books(books)
+    puts 'entering'
     books.each { |book| puts "Title: \"#{book.title}\", Author: #{book.author}" }
   end
 
